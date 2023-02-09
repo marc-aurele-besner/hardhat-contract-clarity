@@ -25,7 +25,7 @@ extendEnvironment(async (hre: any) => {
 })
 
 /**
- * retry task implementation
+ * clarity implementation
  * @param  {HardhatUserArgs} args
  * @param  {HardhatEnv} env
  */
@@ -37,4 +37,12 @@ task('clarity', 'Summarize a smart contract with ChatGPT')
     .setAction(async function (args: any, env: any) {
         // Call function
         await serveTasks('clarity', args, env)
+    })
+
+task('readme', 'Generate a README.md for your project')
+    .addOptionalParam('output', 'Where to save the readme?')
+    .addOptionalParam('openaiKey', 'What is your OpenAI API Key?', '')
+    .setAction(async function (args: any, env: any) {
+        // Call function
+        await serveTasks('readme', args, env)
     })

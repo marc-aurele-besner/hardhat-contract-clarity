@@ -80,15 +80,29 @@ npx hardhat clarity
 
 This task is used to summarize a smart contract in human readable format using OpenAI GPT-3.
 
-Usage: hardhat [GLOBAL OPTIONS] clarity --contract <STRING> [--openai-key <STRING>] --output <STRING>
+Usage: hardhat [GLOBAL OPTIONS] clarity --contract <STRING> [--openai-key <STRING>] --output <STRING> --flatten <BOOLEAN>
 
 OPTIONS:
 
   --contract    What contract you want to summarize? 
   --openai-key  What is your OpenAI API Key? (default: "")
   --output      Where to save the summary 
+  --flatten     Flatten the contract before summarizing? (default: false)
 
 clarity: Summarize a smart contract with ChatGPT
+
+### Task: readme
+
+This task is used to generate a README.md file for your project package.json.
+
+Usage: hardhat [GLOBAL OPTIONS] readme --output <STRING> [--openai-key <STRING>]
+
+OPTIONS:
+
+  --openai-key  What is your OpenAI API Key? (default: "")
+  --output      Where to save the summary 
+
+readme: Generate a README.md file for your project
 
 ## Functions
 
@@ -100,7 +114,13 @@ const { clarity } = require('hardhat');
 clarity.getClarity(
     contract: string,
     output: string,
-    openAIKey?: string
+    openAIKey: string
+    flatten: boolean
+)
+
+clarity.getReadme(
+    output: string,
+    openAIKey: string
 )
 ```
 
@@ -123,6 +143,7 @@ hardhat-contract-clarity/
    │   Clarity.ts
    │   README.md
    │   getClarity.ts
+   │   getReadme.ts
    │   index.ts
    │   serveTasks.ts
    │   type-extensions.ts

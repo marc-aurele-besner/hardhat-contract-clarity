@@ -1,14 +1,9 @@
 import inquirer from 'inquirer'
 
 import getClarity from './getClarity'
+import getReadme from './getReadme'
 
-const inquirerTransactionHashInput = [
-    {
-        type: 'input',
-        name: 'contract',
-        message: 'What contract you want to summarize?',
-        default: 'hardhat'
-    },
+const inquirerGeneralInput = [
     {
         type: 'input',
         name: 'output',
@@ -19,7 +14,17 @@ const inquirerTransactionHashInput = [
         type: 'input',
         name: 'openAIKey',
         message: 'What is your OpenAI API Key?'
+    }
+]
+
+const inquirerClarityInput = [
+    {
+        type: 'input',
+        name: 'contract',
+        message: 'What contract you want to summarize?',
+        default: 'hardhat'
     },
+    ...inquirerGeneralInput,
     {
         type: 'boolean',
         name: 'flatten',
@@ -29,7 +34,7 @@ const inquirerTransactionHashInput = [
 const serveClarity = async (args: any, env: any) => {
     if (!args.contract || args.contract === '' || !args.output || args.output === '')
         await inquirer
-            .prompt(inquirerTransactionHashInput)
+            .prompt(inquirerClarityInput)
             .then(async (answers) =>
                 getClarity(
                     env,
@@ -47,6 +52,19 @@ const serveClarity = async (args: any, env: any) => {
             })
     else await getClarity(env, args.contract, args.output, args.openAIKey, args.flatten)
 }
+const serveReadme = async (args: any, env: any) => {
+    if (!args.output || args.output === '')
+        await inquirer
+            .prompt(inquirerGeneralInput)
+            .then(async (answers) => getReadme(env, answers.output, answers.openAIKey))
+            .catch((err: any) => {
+                console.log(err)
+            })
+            .finally(() => {
+                process.exit(0)
+            })
+    else await getReadme(env, args.output, args.openAIKey)
+}
 
 const serveCLI = async (task: string) => {
     if (task === '')
@@ -56,7 +74,7 @@ const serveCLI = async (task: string) => {
                     type: 'list',
                     name: 'action',
                     message: 'What do you want to do?',
-                    choices: ['clarity']
+                    choices: ['clarity', 'readme']
                 }
             ])
         ).action
@@ -69,13 +87,16 @@ const serveFunction = async (task: string, args: any, env: any) => {
         case 'clarity':
             await serveClarity(args, env)
             break
+        case 'readme':
+            await serveReadme(args, env)
+            break
         default:
             break
     }
 }
 
 const serveTasks = async (task: string, args: any, env: any) => {
-    console.log('Tool that summarizes smart contracts for improved readability and understanding')
+    console.log('Tool that summarizes smart contracts using OpenAI GPT3 and generate README.md files')
     return serveFunction(task, args, env)
 }
 

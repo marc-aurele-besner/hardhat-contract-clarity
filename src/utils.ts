@@ -38,25 +38,25 @@ export const flattenContract = async (contract: string, output: string) => {
     }
 }
 
-export const loadContract = async (flatContract: string) => {
+export const loadFile = async (filePath: string) => {
     try {
         // Read the file
-        const contract = readFileSync(flatContract).toString()
+        const contract = readFileSync(filePath).toString()
         return contract
     } catch (err) {
-        console.log('\x1b[33m%s\x1b[0m', `Error loading flattened contract`, err)
+        console.log('\x1b[33m%s\x1b[0m', `Error loading file ${filePath}`, err)
         return undefined
     }
 }
 
-export const saveSummary = async (env: any, summary: string, outputFile: string) => {
+export const saveFile = async (content: string, outputFile: string) => {
     try {
         // Write the file
-        writeFileSync(outputFile, summary)
+        writeFileSync(outputFile, content)
 
-        console.log('\x1b[32m%s\x1b[0m', 'Summary saved!')
+        console.log('\x1b[32m%s\x1b[0m', 'File saved!')
     } catch (err) {
-        console.log('\x1b[33m%s\x1b[0m', `Error saving summary`, err)
+        console.log('\x1b[33m%s\x1b[0m', `Error saving file`, err)
         return false
     }
 }

@@ -1,6 +1,6 @@
 import { Configuration, OpenAIApi } from 'openai'
 
-import { flattenContract, loadContract, saveSummary } from './utils'
+import { flattenContract, loadFile, saveFile } from './utils'
 
 const getClarity = async (env: any, contract: string, output: string, openAIKey: string, flatten: boolean) => {
     console.log('\x1b[32m%s\x1b[0m', `Contract: ${contract} is being summarized...`)
@@ -14,7 +14,7 @@ const getClarity = async (env: any, contract: string, output: string, openAIKey:
                 }
             } else contract = contractFlat
         }
-        const Contract = await loadContract(contract)
+        const Contract = await loadFile(contract)
         if (!Contract) {
             return {
                 success: false,
@@ -36,7 +36,7 @@ const getClarity = async (env: any, contract: string, output: string, openAIKey:
             })
             const summary = completion.data.choices[0].text
             if (summary) {
-                await saveSummary(env, summary, output)
+                await saveFile(summary, output)
                 console.log('\x1b[32m%s\x1b[0m', `Summary: ${summary}`)
                 console.log('\x1b[32m%s\x1b[0m', `Contract: ${contract} has been summarized and saved to ${output}`)
                 return {
