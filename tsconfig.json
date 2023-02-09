@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+      "target": "ES2017",
+      "module": "commonjs",
+      "declaration": true,
+      "declarationMap": true,
+      "sourceMap": true,
+      "outDir": "./dist",
+      "strict": true,
+      "rootDirs": ["./src"],
+      "esModuleInterop": true
+    },
+    // "files": [], // Any hardhat plugin's main .d.ts has to be added here
+    "exclude": ["dist", "node_modules"],
+    "include": [
+      "./src"
+    ]
+}
