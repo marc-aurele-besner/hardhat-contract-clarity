@@ -21,7 +21,8 @@
         "solidity",
         "ethereum",
         "hardhat",
-        "smart-contract"
+        "smart-contract",
+        "readme"
     ],
     "files": [
         "dist/",
