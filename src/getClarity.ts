@@ -56,43 +56,28 @@ const getClarity = async (env: any, contract: string, output: string, openAIKey:
             }
         }
     } catch (err) {
-        console.log('\x1b[33m%s\x1b[0m', err, '\x1b[0m')
-        if (err === 'Error: Request failed with status code 401')
-            console.log('\x1b[33m%s\x1b[0m', `Error definition: Invalid Authentication`, '\x1b[0m')
-        if (err === 'Error: Request failed with status code 404') {
+        const error: string = String(err)
+        if (error.startsWith('Error: Request failed with status code 401'))
+            console.log('\x1b[33m%s\x1b[0m', `Error: (401) Invalid Authentication`, '\x1b[0m')
+        else if (error.startsWith('Error: Request failed with status code 404')) {
+            console.log('\x1b[33m%s\x1b[0m', `Error: (404) The requesting API key is not correct.`, '\x1b[0m', ' OR ')
+            console.log('\x1b[33m%s\x1b[0m', `Error: (404) Your account is not part of an organization.`, '\x1b[0m')
+        } else if (error.startsWith('Error: Request failed with status code 429')) {
+            console.log('\x1b[33m%s\x1b[0m', `Error: (429) You have hit your assigned rate limit.`, '\x1b[0m', ' OR ')
             console.log(
                 '\x1b[33m%s\x1b[0m',
-                `Error definition: The requesting API key is not correct.`,
+                `Error: (429) You have hit your maximum monthly spend (hard limit).`,
                 '\x1b[0m',
                 ' OR '
             )
+            console.log('\x1b[33m%s\x1b[0m', `Error: (429) Our servers are experiencing high traffic.`, '\x1b[0m')
+        } else if (error.startsWith('Error: Request failed with status code 500'))
             console.log(
                 '\x1b[33m%s\x1b[0m',
-                `Error definition: Your account is not part of an organization.`,
+                `Error: (500) The server had an error while processing your request.`,
                 '\x1b[0m'
             )
-        }
-        if (err === 'Error: Request failed with status code 429') {
-            console.log(
-                '\x1b[33m%s\x1b[0m',
-                `Error definition: You have hit your assigned rate limit.`,
-                '\x1b[0m',
-                ' OR '
-            )
-            console.log(
-                '\x1b[33m%s\x1b[0m',
-                `Error definition: You have hit your maximum monthly spend (hard limit).`,
-                '\x1b[0m',
-                ' OR '
-            )
-            console.log('\x1b[33m%s\x1b[0m', `Error definition: Our servers are experiencing high traffic.`, '\x1b[0m')
-        }
-        if (err === 'Error: Request failed with status code 500')
-            console.log(
-                '\x1b[33m%s\x1b[0m',
-                `Error definition: The server had an error while processing your request.`,
-                '\x1b[0m'
-            )
+        else console.log('\x1b[33m%s\x1b[0m', err, '\x1b[0m')
     }
 }
 
