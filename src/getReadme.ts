@@ -9,7 +9,8 @@ const getReadme = async (env: any, output: string, openAIKey: string) => {
         if (!Readme) {
             return {
                 success: false,
-                message: 'Clarity failed, could not locate package.json'
+                message: 'Clarity failed, could not locate package.json',
+                readme: null
             }
         } else {
             const configuration = new Configuration({
@@ -21,7 +22,7 @@ const getReadme = async (env: any, output: string, openAIKey: string) => {
                 prompt:
                     'With the following package.json, can you generate a descriptive readme in markdown?\n\n' + Readme,
                 temperature: 0.7,
-                max_tokens: 64,
+                max_tokens: 2000,
                 top_p: 1.0,
                 frequency_penalty: 0.0,
                 presence_penalty: 0.0
@@ -29,17 +30,19 @@ const getReadme = async (env: any, output: string, openAIKey: string) => {
             const generatedReadme = completion.data.choices[0].text
             if (generatedReadme) {
                 await saveFile(generatedReadme, output)
-                console.log('\x1b[32m%s\x1b[0m', `Readme: ${generatedReadme}`)
-                console.log('\x1b[32m%s\x1b[0m', `Readme saved to ${output}`)
+                console.log('\x1b[32m%s\x1b[0m', `Readme: `, '\x1b[0m', generatedReadme)
+                console.log('\x1b[32m%s\x1b[0m', `Readme saved to `, '\x1b[0m', output)
                 return {
                     success: true,
-                    message: 'Readme available at ' + output
+                    message: 'Readme available at ' + output,
+                    readme: generatedReadme
                 }
             } else {
                 console.log('\x1b[33m%s\x1b[0m', `Error: Could not generate readme`)
                 return {
                     success: false,
-                    message: 'Could not generate readme'
+                    message: 'Could not generate readme',
+                    readme: null
                 }
             }
         }
@@ -66,6 +69,11 @@ const getReadme = async (env: any, output: string, openAIKey: string) => {
                 '\x1b[0m'
             )
         else console.log('\x1b[33m%s\x1b[0m', err, '\x1b[0m')
+    }
+    return {
+        success: false,
+        message: 'Could not generate readme',
+        readme: null
     }
 }
 
