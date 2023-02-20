@@ -50,7 +50,7 @@ const serveClarity = async (args: any, env: any) => {
             .finally(() => {
                 process.exit(0)
             })
-    else await getClarity(env, args.contract, args.output, args.openAIKey, args.flatten)
+    else await getClarity(env, args.contract, args.output, args.openaiKey, args.flatten)
 }
 const serveReadme = async (args: any, env: any) => {
     if (!args.output || args.output === '')
