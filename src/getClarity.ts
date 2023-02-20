@@ -3,7 +3,7 @@ import { Configuration, OpenAIApi } from 'openai'
 import { flattenContract, loadFile, saveFile } from './utils'
 
 const getClarity = async (env: any, contract: string, output: string, openAIKey: string, flatten: boolean) => {
-    console.log('\x1b[32m%s\x1b[0m', `Contract: ${contract} is being summarized...`)
+    console.log('\x1b[32m%s\x1b[0m', `Contract: ${contract} is being summarized...`, '\x1b[0m')
     try {
         if (flatten) {
             const contractFlat = await flattenContract(contract, output)
@@ -37,14 +37,18 @@ const getClarity = async (env: any, contract: string, output: string, openAIKey:
             const summary = completion.data.choices[0].text
             if (summary) {
                 await saveFile(summary, output)
-                console.log('\x1b[32m%s\x1b[0m', `Summary: ${summary}`)
-                console.log('\x1b[32m%s\x1b[0m', `Contract: ${contract} has been summarized and saved to ${output}`)
+                console.log('\x1b[32m%s\x1b[0m', `Summary: ${summary}`, '\x1b[0m')
+                console.log(
+                    '\x1b[32m%s\x1b[0m',
+                    `Contract: ${contract} has been summarized and saved to ${output}`,
+                    '\x1b[0m'
+                )
                 return {
                     success: true,
                     message: 'Contract formatted available at ' + output
                 }
             } else {
-                console.log('\x1b[33m%s\x1b[0m', `Error: Could not summarize contract`)
+                console.log('\x1b[33m%s\x1b[0m', `Error: Could not summarize contract`, '\x1b[0m')
                 return {
                     success: false,
                     message: 'Could not summarize contract'
@@ -52,7 +56,43 @@ const getClarity = async (env: any, contract: string, output: string, openAIKey:
             }
         }
     } catch (err) {
-        console.log('\x1b[33m%s\x1b[0m', `Error: ${err}`)
+        console.log('\x1b[33m%s\x1b[0m', err, '\x1b[0m')
+        if (err === 'Error: Request failed with status code 401')
+            console.log('\x1b[33m%s\x1b[0m', `Error definition: Invalid Authentication`, '\x1b[0m')
+        if (err === 'Error: Request failed with status code 404') {
+            console.log(
+                '\x1b[33m%s\x1b[0m',
+                `Error definition: The requesting API key is not correct.`,
+                '\x1b[0m',
+                ' OR '
+            )
+            console.log(
+                '\x1b[33m%s\x1b[0m',
+                `Error definition: Your account is not part of an organization.`,
+                '\x1b[0m'
+            )
+        }
+        if (err === 'Error: Request failed with status code 429') {
+            console.log(
+                '\x1b[33m%s\x1b[0m',
+                `Error definition: You have hit your assigned rate limit.`,
+                '\x1b[0m',
+                ' OR '
+            )
+            console.log(
+                '\x1b[33m%s\x1b[0m',
+                `Error definition: You have hit your maximum monthly spend (hard limit).`,
+                '\x1b[0m',
+                ' OR '
+            )
+            console.log('\x1b[33m%s\x1b[0m', `Error definition: Our servers are experiencing high traffic.`, '\x1b[0m')
+        }
+        if (err === 'Error: Request failed with status code 500')
+            console.log(
+                '\x1b[33m%s\x1b[0m',
+                `Error definition: The server had an error while processing your request.`,
+                '\x1b[0m'
+            )
     }
 }
 
