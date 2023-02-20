@@ -2,16 +2,14 @@ import { Configuration, OpenAIApi } from 'openai'
 
 import { flattenContract, loadFile, saveFile } from './utils'
 
-const getClarity = async (env: any, contract: string, output: string, openAIKey: string, flatten: boolean) => {
-    console.log(
-        '\x1b[32m%s\x1b[0m',
-        `Contract: `,
-        '\x1b[0m',
-        contract,
-        '\x1b[32m%s\x1b[0m',
-        `is being summarized...`,
-        '\x1b[0m'
-    )
+const getClarity = async (env: any, contract?: string, output?: string, openAIKey?: string, flatten?: boolean) => {
+    if ((!contract || contract === '') && env.config.clarity.summary.contract)
+        contract = env.config.clarity.summary.contract
+    if ((!openAIKey || openAIKey === '') && env.config.clarity.openAIKey) openAIKey = env.config.clarity.openAIKey
+    if ((!output || output === '') && env.config.clarity.summary.output) output = env.config.clarity.summary.output
+    if (!output) output = 'contractSummary.txt'
+    if (!contract) throw new Error('No contract provided')
+    console.log('\x1b[32m', `Contract: `, '\x1b[0m', contract, '\x1b[32m', `is being summarized...`, '\x1b[0m')
     try {
         if (flatten) {
             const contractFlat = await flattenContract(contract, output)
@@ -36,27 +34,25 @@ const getClarity = async (env: any, contract: string, output: string, openAIKey:
             })
             const openai = new OpenAIApi(configuration)
             const completion = await openai.createCompletion({
-                model: 'text-davinci-003',
-                prompt: 'Summarize the following contract:\n\n' + Contract + '\n\nSummary:\n\n',
-                temperature: 0.7,
-                max_tokens: 2000,
-                top_p: 1.0,
-                frequency_penalty: 0.0,
-                presence_penalty: 0.0
+                model: env.config.clarity.summary.model || 'text-davinci-003',
+                prompt: `${
+                    env.config.clarity.summary.prompt || 'Summarize the following contract:\n\n'
+                }${Contract}\n\nSummary:\n\n`,
+                temperature: env.config.clarity.summary.temperature || 0.7,
+                max_tokens: env.config.clarity.summary.max_tokens || 2000,
+                top_p: env.config.clarity.summary.top_p || 1.0,
+                frequency_penalty: env.config.clarity.summary.frequency_penalty || 0.0,
+                presence_penalty: env.config.clarity.summary.presence_penalty || 0.0
             })
             const summary = completion.data.choices[0].text
             if (summary) {
                 await saveFile(summary, output)
-                console.log('\x1b[32m%s\x1b[0m', `Summary: `, '\x1b[0m', summary)
-                console.log(
-                    '\x1b[32m%s\x1b[0m',
-                    `Contract: ${contract} has been summarized and saved to ${output}`,
-                    '\x1b[0m'
-                )
+                console.log('\x1b[32m', `Summary: `, '\x1b[0m', summary)
+                console.log('\x1b[32m', `Contract: ${contract} has been summarized and saved to ${output}`, '\x1b[0m')
                 return {
                     success: true,
                     message: 'Contract formatted available at ' + output,
-                    summary: summary
+                    summary
                 }
             } else {
                 console.log('\x1b[33m%s\x1b[0m', `Error: Could not summarize contract`, '\x1b[0m')

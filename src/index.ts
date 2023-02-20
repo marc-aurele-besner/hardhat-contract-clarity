@@ -8,16 +8,17 @@ import path from 'path'
 import { Clarity } from './Clarity'
 import serveTasks from './serveTasks'
 import './type-extensions'
+import { ClarityConfig } from './types'
 
 extendConfig(async (config: HardhatConfig, userConfig: HardhatUserConfig) => {
-    const userPath = userConfig.paths?.clarity
-    let clarity: string
-    if (userPath === undefined) clarity = path.join(config.paths.root, 'clarity')
+    const userPath = userConfig.clarity
+    let clarity: ClarityConfig
+    if (userPath === undefined) clarity = config.clarity
     else {
-        if (path.isAbsolute(userPath)) clarity = userPath
-        else clarity = path.normalize(path.join(config.paths.root, userPath))
+        if (userPath) clarity = userPath
+        else clarity = config.clarity
     }
-    config.paths.clarity = clarity
+    config.clarity = clarity
 })
 
 extendEnvironment(async (hre: any) => {

@@ -2,11 +2,14 @@ import { Configuration, OpenAIApi } from 'openai'
 
 import { loadFile, saveFile } from './utils'
 
-const getReadme = async (env: any, output: string, openAIKey: string) => {
-    console.log('\x1b[32m%s\x1b[0m', `Readme is being generated...`)
+const getReadme = async (env: any, output?: string, openAIKey?: string) => {
+    if ((!openAIKey || openAIKey === '') && env.config.clarity.openAIKey) openAIKey = env.config.clarity.openAIKey
+    if ((!output || output === '') && env.config.clarity.readme.output) output = env.config.clarity.readme.output
+    if (!output) output = 'generatedReadme.md'
+    console.log('\x1b[32m', `Readme is being generated...`)
     try {
-        const Readme = await loadFile('package.json')
-        if (!Readme) {
+        const PackageJSON = await loadFile('package.json')
+        if (!PackageJSON) {
             return {
                 success: false,
                 message: 'Clarity failed, could not locate package.json',
@@ -14,24 +17,26 @@ const getReadme = async (env: any, output: string, openAIKey: string) => {
             }
         } else {
             const configuration = new Configuration({
-                apiKey: openAIKey
+                apiKey: openAIKey || env.config.clarity.openAIKey
             })
             const openai = new OpenAIApi(configuration)
             const completion = await openai.createCompletion({
-                model: 'text-davinci-003',
-                prompt:
-                    'With the following package.json, can you generate a descriptive readme in markdown?\n\n' + Readme,
-                temperature: 0.7,
-                max_tokens: 2000,
-                top_p: 1.0,
-                frequency_penalty: 0.0,
-                presence_penalty: 0.0
+                model: env.config.clarity.readme.model || 'text-davinci-003',
+                prompt: `${
+                    env.config.clarity.readme.prompt ||
+                    'With the following package.json, can you generate a descriptive readme in markdown?\n\n'
+                }${PackageJSON}`,
+                temperature: env.config.clarity.readme.temperature || 0.7,
+                max_tokens: env.config.clarity.readme.max_tokens || 2000,
+                top_p: env.config.clarity.readme.top_p || 1.0,
+                frequency_penalty: env.config.clarity.readme.frequency_penalty || 0.0,
+                presence_penalty: env.config.clarity.readme.presence_penalty || 0.0
             })
             const generatedReadme = completion.data.choices[0].text
             if (generatedReadme) {
                 await saveFile(generatedReadme, output)
-                console.log('\x1b[32m%s\x1b[0m', `Readme: `, '\x1b[0m', generatedReadme)
-                console.log('\x1b[32m%s\x1b[0m', `Readme saved to `, '\x1b[0m', output)
+                console.log('\x1b[32m', `Readme: `, '\x1b[0m', generatedReadme)
+                console.log('\x1b[32m', `Readme saved to `, '\x1b[0m', output)
                 return {
                     success: true,
                     message: 'Readme available at ' + output,

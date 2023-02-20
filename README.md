@@ -147,6 +147,7 @@ hardhat-contract-clarity/
    │   index.ts
    │   serveTasks.ts
    │   type-extensions.ts
+   │   types.ts
    │   utils.ts
 ```
 ## Don't hesitate to contribute to this project.
