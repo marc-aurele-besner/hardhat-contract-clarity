@@ -57,6 +57,7 @@ import 'hardhat-contract-clarity'
  - [.prettierrc](./.prettierrc)
  - [CONTRIBUTING.md](./CONTRIBUTING.md)
  - [LICENSE](./LICENSE)
+ - [README.md](./README.md)
  - [awesome-readme.config.js](./awesome-readme.config.js)
  - [package-lock.json](./package-lock.json)
  - [package.json](./package.json)
@@ -186,6 +187,7 @@ hardhat-contract-clarity/
 │   .prettierrc
 │   CONTRIBUTING.md
 │   LICENSE
+│   README.md
 │   awesome-readme.config.js
 │   package-lock.json
 │   package.json
