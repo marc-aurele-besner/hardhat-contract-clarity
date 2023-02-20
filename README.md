@@ -57,7 +57,6 @@ import 'hardhat-contract-clarity'
  - [.prettierrc](./.prettierrc)
  - [CONTRIBUTING.md](./CONTRIBUTING.md)
  - [LICENSE](./LICENSE)
- - [README.md](./README.md)
  - [awesome-readme.config.js](./awesome-readme.config.js)
  - [package-lock.json](./package-lock.json)
  - [package.json](./package.json)
@@ -66,7 +65,6 @@ import 'hardhat-contract-clarity'
  - [tslint.json](./tslint.json)
 
 
-    
 
 ## Tasks
 
@@ -124,6 +122,62 @@ clarity.getReadme(
 )
 ```
 
+## Configuration
+
+These configuration are optional.
+To configure the plugin and control at 100% the request to chatGPT API you can use the following options in your hardhat.config.js/.ts:
+
+```js
+clarity: {
+    openAIKey: string | undefined
+    summary: {
+        contract?: string | undefined
+        output?: string | undefined
+        model?: string | undefined
+        prompt?: string | undefined
+        temperature?: number | undefined
+        max_tokens?: number | undefined
+        top_p?: number | undefined
+        frequency_penalty?: number | undefined
+        presence_penalty?: number | undefined
+    }
+    readme: {
+        output?: string | undefined
+        model?: string | undefined
+        prompt?: string | undefined
+        temperature?: number | undefined
+        max_tokens?: number | undefined
+        top_p?: number | undefined
+        frequency_penalty?: number | undefined
+        presence_penalty?: number | undefined
+    }
+}
+```
+
+Here is a description of each option:
+
+- openAIKey: This setting is a string that contains the API key for accessing OpenAI's GPT-3 language model. If this setting is undefined, the plugin will not be able to access the language model.
+
+- clarity.summary.contract: This setting is a string that contains the name of the Solidity contract that the plugin will generate a summary for. If this setting is undefined, the plugin will not generate a summary.
+- clarity.summary.output: This setting is a string that contains the name of the output file that the plugin will write the summary to. If this setting is undefined, the plugin will write the summary to the console.
+- clarity.summary.model: This setting is a string that contains the name of the GPT-3 language model that the plugin will use to generate the summary. If this setting is undefined, the plugin will use the default language model.
+- clarity.summary.prompt: This setting is a string that contains the prompt that the plugin will use to generate the summary. If this setting is undefined, the plugin will use a default prompt.
+- clarity.summary.temperature: This setting is a number that controls the randomness of the language model's output. A higher value will result in more random output. If this setting is undefined, the plugin will use a default value.
+- clarity.summary.max_tokens: This setting is a number that controls the length of the language model's output. If this setting is undefined, the plugin will use a default value.
+- clarity.summary.top_p: This setting is a number that controls the diversity of the language model's output. A lower value will result in more diverse output. If this setting is undefined, the plugin will use a default value.
+- clarity.summary.frequency_penalty: This setting is a number that controls the frequency penalty for the language model's output. A higher value will result in the language model generating fewer repeated phrases. If this setting is undefined, the plugin will use a default value.
+- clarity.summary.presence_penalty: This setting is a number that controls the presence penalty for the language model's output. A higher value will result in the language model generating fewer words that do not appear in the input prompt. If this setting is undefined, the plugin will use a default value.
+
+- clarity.readme.output: This setting is a string that contains the name of the output file that the plugin will write the generated README to. If this setting is undefined, the plugin will not write a README file.
+- clarity.readme.model: This setting is a string that contains the name of the GPT-3 language model that the plugin will use to generate the README. If this setting is undefined, the plugin will use the default language model.
+- clarity.readme.prompt: This setting is a string that contains the prompt that the plugin will use to generate the README. If this setting is undefined, the plugin will use a default prompt.
+- clarity.readme.temperature: This setting is a number that controls the randomness of the language model's output. A higher value will result in more random output. If this setting is undefined, the plugin will use a default value.
+- clarity.readme.max_tokens: This setting is a number that controls the length of the language model's output. If this setting is undefined, the plugin will use a default value.
+- clarity.readme.top_p: This setting is a number that controls the diversity of the language model's output. A lower value will result in more diverse output. If this setting is undefined, the plugin will use a default value.
+- clarity.readme.frequency_penalty: This setting is a number that controls the frequency penalty for the language model's output. A higher value will result in the language model generating fewer repeated phrases. If this setting is undefined, the plugin will use a default value.
+- clarity.readme.presence_penalty: This setting is a number that controls the presence penalty for the language model's output. A higher value will result in the language model generating fewer words that do not appear in the input prompt. If this setting is undefined, the plugin will use a default value.
+
+
 ## Directory Tree
 ```
 hardhat-contract-clarity/
@@ -132,7 +186,6 @@ hardhat-contract-clarity/
 │   .prettierrc
 │   CONTRIBUTING.md
 │   LICENSE
-│   README.md
 │   awesome-readme.config.js
 │   package-lock.json
 │   package.json
