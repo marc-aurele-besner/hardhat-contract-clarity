@@ -4,6 +4,12 @@ import getClarity from './getClarity'
 import getHelp from './getHelp'
 import getReadme from './getReadme'
 
+const inquirerOpenAIKey = {
+    type: 'input',
+    name: 'openAIKey',
+    message: 'What is your OpenAI API Key?'
+}
+
 const inquirerGeneralInput = [
     {
         type: 'input',
@@ -11,11 +17,7 @@ const inquirerGeneralInput = [
         message: 'Where to save the summary?',
         default: 'hardhat'
     },
-    {
-        type: 'input',
-        name: 'openAIKey',
-        message: 'What is your OpenAI API Key?'
-    }
+    inquirerOpenAIKey
 ]
 
 const inquirerClarityInput = [
@@ -40,11 +42,7 @@ const inquirerAIhelpInput = [
         message: 'Error message?',
         default: 'How to use hardhat'
     },
-    {
-        type: 'input',
-        name: 'openAIKey',
-        message: 'What is your OpenAI API Key?'
-    }
+    inquirerOpenAIKey
 ]
 
 const serveClarity = async (args: any, env: any) => {

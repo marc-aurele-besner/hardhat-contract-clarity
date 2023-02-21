@@ -49,7 +49,8 @@ task('readme', 'Generate a README.md for your project')
     })
 
 task('aihelp', 'Provide a error message and get help from ChatGPT')
-    .addOptionalParam('error', 'Error message')
+    .addOptionalParam('error', 'What is your error message')
+    .addOptionalParam('openaiKey', 'What is your OpenAI API Key?', '')
     .setAction(async function (args: any, env: any) {
         // Call function
         await serveTasks('aihelp', args, env)
