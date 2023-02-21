@@ -9,7 +9,7 @@ YP   YP YP   YP 88   YD Y8888D' YP   YP YP   YP    YP            \`Y88P'  \`Y88P
 `,
     root_license: `[![npm version](https://badge.fury.io/js/hardhat-contract-clarity.svg)](https://badge.fury.io/js/hardhat-contract-clarity)`,
     root_header: `
-This Hardhat plugin add 1 task to the Hardhat summarize a smart contract in human readable format using OpenAI GPT-3.
+    This Hardhat plugin add 3 tasks to the Hardhat, to summarize a smart contract in human readable format using OpenAI GPT-3, to create a readme looking at your package.json and a task to ask question to chatGPT when running into errors.
 
 ## Install Hardhat-contract-clarity
 
