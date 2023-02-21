@@ -16,7 +16,7 @@ YP   YP YP   YP 88   YD Y8888D' YP   YP YP   YP    YP            `Y88P'  `Y88P' 
 ```
 
 
- - [Clarity.ts](./Clarity.ts) - [README.md](./README.md) - [getClarity.ts](./getClarity.ts) - [getReadme.ts](./getReadme.ts) - [index.ts](./index.ts) - [serveTasks.ts](./serveTasks.ts) - [type-extensions.ts](./type-extensions.ts) - [types.ts](./types.ts) - [utils.ts](./utils.ts)
+ - [Clarity.ts](./Clarity.ts) - [README.md](./README.md) - [getClarity.ts](./getClarity.ts) - [getHelp.ts](./getHelp.ts) - [getReadme.ts](./getReadme.ts) - [index.ts](./index.ts) - [serveTasks.ts](./serveTasks.ts) - [type-extensions.ts](./type-extensions.ts) - [types.ts](./types.ts) - [utils.ts](./utils.ts)
 ## Directory Tree
 [<- Previous](https://github.com/marc-aurele-besner/hardhat-contract-clarity.git)
 ```
@@ -24,6 +24,7 @@ src/
    │   Clarity.ts
    │   README.md
    │   getClarity.ts
+   │   getHelp.ts
    │   getReadme.ts
    │   index.ts
    │   serveTasks.ts

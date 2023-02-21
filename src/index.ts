@@ -47,3 +47,10 @@ task('readme', 'Generate a README.md for your project')
         // Call function
         await serveTasks('readme', args, env)
     })
+
+task('aihelp', 'Provide a error message and get help from ChatGPT')
+    .addOptionalParam('error', 'Error message')
+    .setAction(async function (args: any, env: any) {
+        // Call function
+        await serveTasks('aihelp', args, env)
+    })

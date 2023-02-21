@@ -1,6 +1,7 @@
 import { extendEnvironment, task } from 'hardhat/config'
 
 import getClarity from './getClarity'
+import getHelp from './getHelp'
 import getReadme from './getReadme'
 
 export class Clarity {
@@ -16,5 +17,9 @@ export class Clarity {
 
     public async readme(output?: string, openAIKey?: string) {
         await getReadme(this._env, output, openAIKey)
+    }
+
+    public async AIhelp(error?: string, openAIKey?: string) {
+        await getHelp(this._env, error, openAIKey)
     }
 }

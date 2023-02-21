@@ -1,6 +1,7 @@
 import inquirer from 'inquirer'
 
 import getClarity from './getClarity'
+import getHelp from './getHelp'
 import getReadme from './getReadme'
 
 const inquirerGeneralInput = [
@@ -31,6 +32,21 @@ const inquirerClarityInput = [
         message: 'Do you want to flatten the contract?'
     }
 ]
+
+const inquirerAIhelpInput = [
+    {
+        type: 'input',
+        name: 'error',
+        message: 'Error message?',
+        default: 'How to use hardhat'
+    },
+    {
+        type: 'input',
+        name: 'openAIKey',
+        message: 'What is your OpenAI API Key?'
+    }
+]
+
 const serveClarity = async (args: any, env: any) => {
     if (!args.contract || args.contract === '' || !args.output || args.output === '')
         await inquirer
@@ -65,6 +81,19 @@ const serveReadme = async (args: any, env: any) => {
             })
     else await getReadme(env, args.output, args.openAIKey)
 }
+const serveAIhelp = async (args: any, env: any) => {
+    if (!args.error || args.error === '')
+        await inquirer
+            .prompt(inquirerAIhelpInput)
+            .then(async (answers) => getHelp(env, answers.error, answers.openAIKey))
+            .catch((err: any) => {
+                console.log(err)
+            })
+            .finally(() => {
+                process.exit(0)
+            })
+    else await getHelp(env, args.error, args.openAIKey)
+}
 
 const serveCLI = async (task: string) => {
     if (task === '')
@@ -89,6 +118,9 @@ const serveFunction = async (task: string, args: any, env: any) => {
             break
         case 'readme':
             await serveReadme(args, env)
+            break
+        case 'aihelp':
+            await serveAIhelp(args, env)
             break
         default:
             break

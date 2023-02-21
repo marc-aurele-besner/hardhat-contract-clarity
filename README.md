@@ -57,7 +57,6 @@ import 'hardhat-contract-clarity'
  - [.prettierrc](./.prettierrc)
  - [CONTRIBUTING.md](./CONTRIBUTING.md)
  - [LICENSE](./LICENSE)
- - [README.md](./README.md)
  - [awesome-readme.config.js](./awesome-readme.config.js)
  - [package-lock.json](./package-lock.json)
  - [package.json](./package.json)
@@ -110,16 +109,21 @@ Function allow you to use the clarity tool in your code.
 ```js
 const { clarity } = require('hardhat');
 
-clarity.getClarity(
-    contract: string,
-    output: string,
-    openAIKey: string
-    flatten: boolean
+clarity.clarity(
+    contract?: string,
+    output?: string,
+    openAIKey?: string
+    flatten?: boolean
 )
 
-clarity.getReadme(
-    output: string,
-    openAIKey: string
+clarity.readme(
+    output?: string,
+    openAIKey?: string
+)
+
+clarity.AIhelp(
+    error?: string,
+    openAIKey?: string
 )
 ```
 
@@ -141,7 +145,7 @@ clarity: {
         top_p?: number | undefined
         frequency_penalty?: number | undefined
         presence_penalty?: number | undefined
-    }
+    },
     readme: {
         output?: string | undefined
         model?: string | undefined
@@ -151,7 +155,66 @@ clarity: {
         top_p?: number | undefined
         frequency_penalty?: number | undefined
         presence_penalty?: number | undefined
+    },
+    AIhelp: {
+        error?: string | undefined
+        model?: string | undefined
+        prompt?: string | undefined
+        promptEnd?: string | undefined
+        temperature?: number | undefined
+        max_tokens?: number | undefined
+        top_p?: number | undefined
+        frequency_penalty?: number | undefined
+        presence_penalty?: number | undefined
     }
+}
+```
+
+Here is the default configuration:
+
+```js
+clarity: {
+    openAIKey: OPENAI_API_KEY,
+    summary: {
+      // contract: 'contracts/MyMultiSigFactory.sol',
+      output: 'clarity.txt',
+      model: 'text-davinci-003',
+      prompt: 'Summarize the following contract:
+
+',
+      temperature: 0.7,
+      max_tokens: 2000,
+      top_p: 1.0,
+      frequency_penalty: 0.0,
+      presence_penalty: 0.0,
+    },
+    readme: {
+      output: 'clarity-readme.md',
+      model: 'text-davinci-003',
+      prompt: 'With the following package.json, can you generate a descriptive readme in markdown?
+
+',
+      temperature: 0.7,
+      max_tokens: 2000,
+      top_p: 1.0,
+      frequency_penalty: 0.0,
+      presence_penalty: 0.0,
+    },
+    AIhelp: {
+      error: 'How to use hardhat with openAI',
+      model: 'text-davinci-003',
+      prompt: 'Using hardhat, I have this error message:
+
+',
+      promptEnd: 'Can you explain why and how I can fix the error:
+
+',
+      temperature: 0.7,
+      max_tokens: 2000,
+      top_p: 1.0,
+      frequency_penalty: 0.0,
+      presence_penalty: 0.0,
+    },
 }
 ```
 
@@ -178,6 +241,16 @@ Here is a description of each option:
 - clarity.readme.frequency_penalty: This setting is a number that controls the frequency penalty for the language model's output. A higher value will result in the language model generating fewer repeated phrases. If this setting is undefined, the plugin will use a default value.
 - clarity.readme.presence_penalty: This setting is a number that controls the presence penalty for the language model's output. A higher value will result in the language model generating fewer words that do not appear in the input prompt. If this setting is undefined, the plugin will use a default value.
 
+- clarity.AIhelp.error: This setting is a string that contains the name of the output file that the plugin will write the generated answer to.
+- clarity.AIhelp.model: This setting is a string that contains the name of the GPT-3 language model that the plugin will use to generate the answer. If this setting is undefined, the plugin will use the default language model.
+- clarity.AIhelp.prompt: This setting is a string that contains the prompt that the plugin will use to generate the answer. If this setting is undefined, the plugin will use a default prompt.
+- clarity.AIhelp.promptEnd: This setting is a string that contains the end of the prompt that the plugin will use to generate the answer. If this setting is undefined, the plugin will use a default prompt.
+- clarity.AIhelp.temperature: This setting is a number that controls the randomness of the language model's output. A higher value will result in more random output. If this setting is undefined, the plugin will use a default value.
+- clarity.AIhelp.max_tokens: This setting is a number that controls the length of the language model's output. If this setting is undefined, the plugin will use a default value.
+- clarity.AIhelp.top_p: This setting is a number that controls the diversity of the language model's output. A lower value will result in more diverse output. If this setting is undefined, the plugin will use a default value.
+- clarity.AIhelp.frequency_penalty: This setting is a number that controls the frequency penalty for the language model's output. A higher value will result in the language model generating fewer repeated phrases. If this setting is undefined, the plugin will use a default value.
+- clarity.AIhelp.presence_penalty: This setting is a number that controls the presence penalty for the language model's output. A higher value will result in the language model generating fewer words that do not appear in the input prompt. If this setting is undefined, the plugin will use a default value.
+
 
 ## Directory Tree
 ```
@@ -187,7 +260,6 @@ hardhat-contract-clarity/
 │   .prettierrc
 │   CONTRIBUTING.md
 │   LICENSE
-│   README.md
 │   awesome-readme.config.js
 │   package-lock.json
 │   package.json
@@ -198,6 +270,7 @@ hardhat-contract-clarity/
    │   Clarity.ts
    │   README.md
    │   getClarity.ts
+   │   getHelp.ts
    │   getReadme.ts
    │   index.ts
    │   serveTasks.ts
