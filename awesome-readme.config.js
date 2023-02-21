@@ -155,7 +155,7 @@ Here is the default configuration:
 clarity: {
     openAIKey: OPENAI_API_KEY,
     summary: {
-      // contract: 'contracts/MyMultiSigFactory.sol',
+      contract: 'contracts/Lock.sol',
       output: 'clarity.txt',
       model: 'text-davinci-003',
       prompt: 'Summarize the following contract:\n\n',
