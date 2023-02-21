@@ -57,6 +57,7 @@ import 'hardhat-contract-clarity'
  - [.prettierrc](./.prettierrc)
  - [CONTRIBUTING.md](./CONTRIBUTING.md)
  - [LICENSE](./LICENSE)
+ - [README.md](./README.md)
  - [awesome-readme.config.js](./awesome-readme.config.js)
  - [package-lock.json](./package-lock.json)
  - [package.json](./package.json)
@@ -89,6 +90,10 @@ OPTIONS:
 
 clarity: Summarize a smart contract with ChatGPT
 
+```shell
+npx hardhat readme
+```
+
 ### Task: readme
 
 This task is used to generate a README.md file for your project package.json.
@@ -101,6 +106,23 @@ OPTIONS:
   --output      Where to save the summary 
 
 readme: Generate a README.md file for your project
+
+```shell
+npx hardhat aihelp
+```
+
+### Task: aihelp
+
+This task is used to ask question to chatGPT when running into errors.
+
+Usage: hardhat [GLOBAL OPTIONS] aihelp --error <STRING> [--openai-key <STRING>]
+
+OPTIONS:
+
+  --openai-key  What is your OpenAI API Key? (default: "")
+  --error      What is your error message? (default: "")
+
+  aihelp: Provide a error message and get help from ChatGPT
 
 ## Functions
 
@@ -260,6 +282,7 @@ hardhat-contract-clarity/
 │   .prettierrc
 │   CONTRIBUTING.md
 │   LICENSE
+│   README.md
 │   awesome-readme.config.js
 │   package-lock.json
 │   package.json
