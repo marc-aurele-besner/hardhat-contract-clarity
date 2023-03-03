@@ -34,7 +34,7 @@ const getClarity = async (env: any, contract?: string, output?: string, openAIKe
             })
             const openai = new OpenAIApi(configuration)
             const completion = await openai.createCompletion({
-                model: env.config.clarity.summary.model || 'text-davinci-003',
+                model: env.config.clarity.summary.model || 'gpt-3.5-turbo',
                 prompt: `${
                     env.config.clarity.summary.prompt || 'Summarize the following contract:\n\n'
                 }${Contract}\n\nSummary:\n\n`,

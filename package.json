@@ -1,6 +1,6 @@
 {
     "name": "hardhat-contract-clarity",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "Tool that summarizes smart contracts using OpenAI GPT3 and generate README.md files",
     "repository": "https://github.com/marc-aurele-besner/hardhat-contract-clarity.git",
     "author": "Marc-Aurele Besner <82244926+marc-aurele-besner@users.noreply.github.com>",

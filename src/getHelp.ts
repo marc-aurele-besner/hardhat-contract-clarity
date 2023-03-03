@@ -11,7 +11,7 @@ const getHelp = async (env: any, errorMsg?: string, openAIKey?: string) => {
         })
         const openai = new OpenAIApi(configuration)
         const completion = await openai.createCompletion({
-            model: env.config.clarity.AIhelp.model || 'text-davinci-003',
+            model: env.config.clarity.AIhelp.model || 'gpt-3.5-turbo',
             prompt: `${
                 env.config.clarity.AIhelp.prompt || 'Using hardhat, I have this error message:\n\n'
             }${errorMsg}\n\n${

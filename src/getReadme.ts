@@ -21,7 +21,7 @@ const getReadme = async (env: any, output?: string, openAIKey?: string) => {
             })
             const openai = new OpenAIApi(configuration)
             const completion = await openai.createCompletion({
-                model: env.config.clarity.readme.model || 'text-davinci-003',
+                model: env.config.clarity.readme.model || 'gpt-3.5-turbo',
                 prompt: `${
                     env.config.clarity.readme.prompt ||
                     'With the following package.json, can you generate a descriptive readme in markdown?\n\n'
