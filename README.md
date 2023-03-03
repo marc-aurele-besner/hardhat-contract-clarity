@@ -200,7 +200,7 @@ clarity: {
     summary: {
       contract: 'contracts/Lock.sol',
       output: 'clarity.txt',
-      model: 'text-davinci-003',
+      model: 'gpt-3.5-turbo',
       prompt: 'Summarize the following contract:
 
 ',
@@ -212,7 +212,7 @@ clarity: {
     },
     readme: {
       output: 'clarity-readme.md',
-      model: 'text-davinci-003',
+      model: 'gpt-3.5-turbo',
       prompt: 'With the following package.json, can you generate a descriptive readme in markdown?
 
 ',
@@ -224,7 +224,7 @@ clarity: {
     },
     AIhelp: {
       error: 'How to use hardhat with openAI',
-      model: 'text-davinci-003',
+      model: 'gpt-3.5-turbo',
       prompt: 'Using hardhat, I have this error message:
 
 ',
@@ -246,7 +246,7 @@ Here is a description of each option:
 
 - clarity.summary.contract: This setting is a string that contains the name of the Solidity contract that the plugin will generate a summary for. If this setting is undefined, the plugin will not generate a summary.
 - clarity.summary.output: This setting is a string that contains the name of the output file that the plugin will write the summary to. If this setting is undefined, the plugin will write the summary to the console.
-- clarity.summary.model: This setting is a string that contains the name of the GPT-3 language model that the plugin will use to generate the summary. If this setting is undefined, the plugin will use the default language model.
+- clarity.summary.model: This setting is a string that contains the name of the GPT-3.5 language model that the plugin will use to generate the summary. If this setting is undefined, the plugin will use the default language model.
 - clarity.summary.prompt: This setting is a string that contains the prompt that the plugin will use to generate the summary. If this setting is undefined, the plugin will use a default prompt.
 - clarity.summary.temperature: This setting is a number that controls the randomness of the language model's output. A higher value will result in more random output. If this setting is undefined, the plugin will use a default value.
 - clarity.summary.max_tokens: This setting is a number that controls the length of the language model's output. If this setting is undefined, the plugin will use a default value.
@@ -255,7 +255,7 @@ Here is a description of each option:
 - clarity.summary.presence_penalty: This setting is a number that controls the presence penalty for the language model's output. A higher value will result in the language model generating fewer words that do not appear in the input prompt. If this setting is undefined, the plugin will use a default value.
 
 - clarity.readme.output: This setting is a string that contains the name of the output file that the plugin will write the generated README to. If this setting is undefined, the plugin will not write a README file.
-- clarity.readme.model: This setting is a string that contains the name of the GPT-3 language model that the plugin will use to generate the README. If this setting is undefined, the plugin will use the default language model.
+- clarity.readme.model: This setting is a string that contains the name of the GPT-3.5 language model that the plugin will use to generate the README. If this setting is undefined, the plugin will use the default language model.
 - clarity.readme.prompt: This setting is a string that contains the prompt that the plugin will use to generate the README. If this setting is undefined, the plugin will use a default prompt.
 - clarity.readme.temperature: This setting is a number that controls the randomness of the language model's output. A higher value will result in more random output. If this setting is undefined, the plugin will use a default value.
 - clarity.readme.max_tokens: This setting is a number that controls the length of the language model's output. If this setting is undefined, the plugin will use a default value.
@@ -264,7 +264,7 @@ Here is a description of each option:
 - clarity.readme.presence_penalty: This setting is a number that controls the presence penalty for the language model's output. A higher value will result in the language model generating fewer words that do not appear in the input prompt. If this setting is undefined, the plugin will use a default value.
 
 - clarity.AIhelp.error: This setting is a string that contains the name of the output file that the plugin will write the generated answer to.
-- clarity.AIhelp.model: This setting is a string that contains the name of the GPT-3 language model that the plugin will use to generate the answer. If this setting is undefined, the plugin will use the default language model.
+- clarity.AIhelp.model: This setting is a string that contains the name of the GPT-3.5 language model that the plugin will use to generate the answer. If this setting is undefined, the plugin will use the default language model.
 - clarity.AIhelp.prompt: This setting is a string that contains the prompt that the plugin will use to generate the answer. If this setting is undefined, the plugin will use a default prompt.
 - clarity.AIhelp.promptEnd: This setting is a string that contains the end of the prompt that the plugin will use to generate the answer. If this setting is undefined, the plugin will use a default prompt.
 - clarity.AIhelp.temperature: This setting is a number that controls the randomness of the language model's output. A higher value will result in more random output. If this setting is undefined, the plugin will use a default value.
