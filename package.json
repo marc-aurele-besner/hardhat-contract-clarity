@@ -55,6 +55,6 @@
     "dependencies": {
         "fs": "^0.0.1-security",
         "inquirer": "^8.2.5",
-        "openai": "^3.1.0"
+        "openai": "^4.0.0"
     }
 }
